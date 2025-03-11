@@ -27,4 +27,5 @@ export default defineConfig({
       "process/": 'process/browser',  // Needed to resolve "TypeError: process.nextTick is not a function" in comunica dependency.
     },
   },
+  base: './',
 })
