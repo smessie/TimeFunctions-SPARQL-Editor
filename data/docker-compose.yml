@@ -1,0 +1,23 @@
+services:
+  virtuoso:
+    container_name: virtuoso
+    image: openlink/virtuoso-opensource-7:latest
+    ports:
+      - 1111:1111
+      - 8890:8890
+    restart: always
+    volumes:
+      - ./import:/usr/share/proj
+      - ./volumes/ugent-biblio:/data
+      - ./scripts/:/opt/virtuoso-opensource/initdb.d/
+    healthcheck:
+      test: wget --spider -q http://localhost:8890 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
