@@ -2,6 +2,7 @@ services:
   virtuoso:
     container_name: virtuoso
     image: openlink/virtuoso-opensource-7:latest
+    env_file: ".env"
     ports:
       - 1111:1111
       - 8890:8890
