@@ -23,6 +23,9 @@ This will start the Virtuoso service, load the data using the `scripts/load-data
 Next, you need to set up SSL for the Virtuoso SPARQL endpoint. You can use Certbot to obtain a certificate.
 
 ```bash
+# Start the SSL setup specific docker compose
+docker compose -f docker-compose-setup-ssl.yml up -d
+
 # Connect to the Certbot container
 docker compose exec certbot sh
 
@@ -31,6 +34,15 @@ certbot certonly --non-interactive --standalone --email YOUR.EMAIL.HERE --agree-
 
 # Exit the container
 exit
+
+# Stop the SSL setup specific docker compose
+docker compose -f docker-compose-setup-ssl.yml down
+```
+
+After obtaining the certificate, you can start the Virtuoso SPARQL endpoint with SSL enabled by running:
+
+```bash
+docker compose up -d
 ```
 
 You can then query the data using the SPARQL endpoint. For example, you can use the following query to retrieve all publications:
