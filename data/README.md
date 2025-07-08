@@ -4,7 +4,7 @@
 
 A docker-compose file is provided to run a Virtuoso SPARQL endpoint with the UGent-Biblio data.
 
-First, make sure the data is available in the `data/import/` folder as `publications.nt`. You can download the data from this [Nextcloud folder](https://cloud.ilabt.imec.be/index.php/s/mofLEFe4EwHZ39p).
+First, make sure the data is available in the `data/import/` folder as `publications.nt`. You can download the data from this [Nextcloud folder](https://cloud.ilabt.imec.be/index.php/s/mofLEFe4EwHZ39p) ([direct download](https://cloud.ilabt.imec.be/index.php/s/mofLEFe4EwHZ39p/download/publications.nt)).
 
 Next, create a `.env` file next to the `docker-compose.yml` file with the following content:
 
@@ -20,7 +20,20 @@ docker compose up -d -e DBA_PASSWORD=*my-secret-virtuoso-password*
 
 This will start the Virtuoso service, load the data using the `scripts/load-data.sql` script and enable CORS using the `scripts/add-cors.sql` script, and expose the SPARQL endpoint at `http://localhost:8890/sparql`.
 
-You can then query the data using the QLever SPARQL endpoint. For example, you can use the following query to retrieve all publications:
+Next, you need to set up SSL for the Virtuoso SPARQL endpoint. You can use Certbot to obtain a certificate.
+
+```bash
+# Connect to the Certbot container
+docker compose exec certbot sh
+
+# Issue a certificate
+certbot certonly --non-interactive --standalone --email YOUR.EMAIL.HERE --agree-tos -d DOMAIN.HERE
+
+# Exit the container
+exit
+```
+
+You can then query the data using the SPARQL endpoint. For example, you can use the following query to retrieve all publications:
 
 ```sparql
 SELECT ?s ?p ?o
