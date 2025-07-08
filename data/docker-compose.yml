@@ -9,8 +9,8 @@ services:
     restart: always
     volumes:
       - ./import:/usr/share/proj
-      - ./volumes/ugent-biblio:/data
-      - ./scripts/:/opt/virtuoso-opensource/initdb.d/
+      - ./volumes/ugent-biblio/:/database/
+      - ./scripts/:/initdb.d/
     healthcheck:
       test: wget --spider -q http://localhost:8890 || exit 1
       interval: 30s
