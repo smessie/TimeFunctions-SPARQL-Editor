@@ -53,28 +53,28 @@ describe('periodToDateTime', () => {
         expect(resultingDate.value).toBe('2024-12-31T23:59:59.999+00:00');
     });
 
-    it('should return beginning of year with offset -14:00 for gYear minInclusive without offset', () => {
+    it('should return beginning of year with offset +14:00 for gYear minInclusive without offset', () => {
         const date = '2025';
         const resultingDate = periodToDateTime(DF.literal(date, XSD_T('gYear')), true, true);
-        expect(resultingDate.value).toBe('2025-01-01T00:00:00.000-14:00');
+        expect(resultingDate.value).toBe('2025-01-01T00:00:00.000+14:00');
     });
 
-    it('should return beginning of next year with offset +14:00 for gYear maxExclusive without offset', () => {
+    it('should return beginning of next year with offset -14:00 for gYear maxExclusive without offset', () => {
         const date = '2025';
         const resultingDate = periodToDateTime(DF.literal(date, XSD_T('gYear')), false, false);
-        expect(resultingDate.value).toBe('2026-01-01T00:00:00.000+14:00');
+        expect(resultingDate.value).toBe('2026-01-01T00:00:00.000-14:00');
     });
 
-    it('should return ending of year with offset +14:00 for gYear maxInclusive without offset', () => {
+    it('should return ending of year with offset -14:00 for gYear maxInclusive without offset', () => {
         const date = '2025';
         const resultingDate = periodToDateTime(DF.literal(date, XSD_T('gYear')), false, true);
-        expect(resultingDate.value).toBe('2025-12-31T23:59:59.999+14:00');
+        expect(resultingDate.value).toBe('2025-12-31T23:59:59.999-14:00');
     });
 
-    it('should return ending of previous year with offset -14:00 for gYear minExclusive without offset', () => {
+    it('should return ending of previous year with offset +14:00 for gYear minExclusive without offset', () => {
         const date = '2025';
         const resultingDate = periodToDateTime(DF.literal(date, XSD_T('gYear')), true, false);
-        expect(resultingDate.value).toBe('2024-12-31T23:59:59.999-14:00');
+        expect(resultingDate.value).toBe('2024-12-31T23:59:59.999+14:00');
     });
 
     it('should return beginning of year with same offset -03:00 for gYear minInclusive', () => {
@@ -149,28 +149,28 @@ describe('periodToDateTime', () => {
         expect(resultingDate.value).toBe('2025-03-31T23:59:59.999+00:00');
     });
 
-    it('should return beginning of month with offset -14:00 for gYearMonth minInclusive without offset', () => {
+    it('should return beginning of month with offset +14:00 for gYearMonth minInclusive without offset', () => {
         const date = '2025-04';
         const resultingDate = periodToDateTime(DF.literal(date, XSD_T('gYearMonth')), true, true);
-        expect(resultingDate.value).toBe('2025-04-01T00:00:00.000-14:00');
+        expect(resultingDate.value).toBe('2025-04-01T00:00:00.000+14:00');
     });
 
-    it('should return beginning of next month with offset +14:00 for gYearMonth maxExclusive without offset', () => {
+    it('should return beginning of next month with offset -14:00 for gYearMonth maxExclusive without offset', () => {
         const date = '2025-04';
         const resultingDate = periodToDateTime(DF.literal(date, XSD_T('gYearMonth')), false, false);
-        expect(resultingDate.value).toBe('2025-05-01T00:00:00.000+14:00');
+        expect(resultingDate.value).toBe('2025-05-01T00:00:00.000-14:00');
     });
 
-    it('should return ending of month with offset +14:00 for gYearMonth maxInclusive without offset', () => {
+    it('should return ending of month with offset -14:00 for gYearMonth maxInclusive without offset', () => {
         const date = '2025-04';
         const resultingDate = periodToDateTime(DF.literal(date, XSD_T('gYearMonth')), false, true);
-        expect(resultingDate.value).toBe('2025-04-30T23:59:59.999+14:00');
+        expect(resultingDate.value).toBe('2025-04-30T23:59:59.999-14:00');
     });
 
-    it('should return ending of previous month with offset -14:00 for gYearMonth minExclusive without offset', () => {
+    it('should return ending of previous month with offset +14:00 for gYearMonth minExclusive without offset', () => {
         const date = '2025-04';
         const resultingDate = periodToDateTime(DF.literal(date, XSD_T('gYearMonth')), true, false);
-        expect(resultingDate.value).toBe('2025-03-31T23:59:59.999-14:00');
+        expect(resultingDate.value).toBe('2025-03-31T23:59:59.999+14:00');
     });
 
     it('should return beginning of month with same offset -03:00 for gYearMonth minInclusive', () => {
@@ -245,28 +245,28 @@ describe('periodToDateTime', () => {
         expect(resultingDate.value).toBe('2025-03-31T23:59:59.999+00:00');
     });
 
-    it('should return beginning of day with offset -14:00 for date minInclusive without offset', () => {
+    it('should return beginning of day with offset +14:00 for date minInclusive without offset', () => {
         const date = '2025-04-01';
         const resultingDate = periodToDateTime(DF.literal(date, XSD_T('date')), true, true);
-        expect(resultingDate.value).toBe('2025-04-01T00:00:00.000-14:00');
+        expect(resultingDate.value).toBe('2025-04-01T00:00:00.000+14:00');
     });
 
-    it('should return beginning of next day with offset +14:00 for date maxExclusive without offset', () => {
+    it('should return beginning of next day with offset -14:00 for date maxExclusive without offset', () => {
         const date = '2025-04-01';
         const resultingDate = periodToDateTime(DF.literal(date, XSD_T('date')), false, false);
-        expect(resultingDate.value).toBe('2025-04-02T00:00:00.000+14:00');
+        expect(resultingDate.value).toBe('2025-04-02T00:00:00.000-14:00');
     });
 
-    it('should return ending of day with offset +14:00 for date maxInclusive without offset', () => {
+    it('should return ending of day with offset -14:00 for date maxInclusive without offset', () => {
         const date = '2025-04-01';
         const resultingDate = periodToDateTime(DF.literal(date, XSD_T('date')), false, true);
-        expect(resultingDate.value).toBe('2025-04-01T23:59:59.999+14:00');
+        expect(resultingDate.value).toBe('2025-04-01T23:59:59.999-14:00');
     });
 
-    it('should return ending of previous day with offset -14:00 for date minExclusive without offset', () => {
+    it('should return ending of previous day with offset +14:00 for date minExclusive without offset', () => {
         const date = '2025-04-01';
         const resultingDate = periodToDateTime(DF.literal(date, XSD_T('date')), true, false);
-        expect(resultingDate.value).toBe('2025-03-31T23:59:59.999-14:00');
+        expect(resultingDate.value).toBe('2025-03-31T23:59:59.999+14:00');
     });
 
     it('should return beginning of day with same offset -03:00 for date minInclusive', () => {
@@ -341,28 +341,28 @@ describe('periodToDateTime', () => {
         expect(resultingDate.value).toBe('2025-04-01T09:59:59.999+00:00');
     });
 
-    it('should return beginning of millisecond with offset -14:00 for dateTime minInclusive without offset', () => {
+    it('should return beginning of millisecond with offset +14:00 for dateTime minInclusive without offset', () => {
         const date = '2025-04-01T10:00:00';
         const resultingDate = periodToDateTime(DF.literal(date, XSD_T('dateTime')), true, true);
-        expect(resultingDate.value).toBe('2025-04-01T10:00:00.000-14:00');
-    });
-
-    it('should return beginning of next millisecond with offset +14:00 for dateTime maxExclusive without offset', () => {
-        const date = '2025-04-01T10:00:00';
-        const resultingDate = periodToDateTime(DF.literal(date, XSD_T('dateTime')), false, false);
-        expect(resultingDate.value).toBe('2025-04-01T10:00:00.001+14:00');
-    });
-
-    it('should return ending of millisecond with offset +14:00 for dateTime maxInclusive without offset', () => {
-        const date = '2025-04-01T10:00:00';
-        const resultingDate = periodToDateTime(DF.literal(date, XSD_T('dateTime')), false, true);
         expect(resultingDate.value).toBe('2025-04-01T10:00:00.000+14:00');
     });
 
-    it('should return ending of previous millisecond with offset -14:00 for dateTime minExclusive without offset', () => {
+    it('should return beginning of next millisecond with offset -14:00 for dateTime maxExclusive without offset', () => {
+        const date = '2025-04-01T10:00:00';
+        const resultingDate = periodToDateTime(DF.literal(date, XSD_T('dateTime')), false, false);
+        expect(resultingDate.value).toBe('2025-04-01T10:00:00.001-14:00');
+    });
+
+    it('should return ending of millisecond with offset -14:00 for dateTime maxInclusive without offset', () => {
+        const date = '2025-04-01T10:00:00';
+        const resultingDate = periodToDateTime(DF.literal(date, XSD_T('dateTime')), false, true);
+        expect(resultingDate.value).toBe('2025-04-01T10:00:00.000-14:00');
+    });
+
+    it('should return ending of previous millisecond with offset +14:00 for dateTime minExclusive without offset', () => {
         const date = '2025-04-01T10:00:00';
         const resultingDate = periodToDateTime(DF.literal(date, XSD_T('dateTime')), true, false);
-        expect(resultingDate.value).toBe('2025-04-01T09:59:59.999-14:00');
+        expect(resultingDate.value).toBe('2025-04-01T09:59:59.999+14:00');
     });
 
     it('should return beginning of millisecond with same offset -03:00 for dateTime minInclusive', () => {

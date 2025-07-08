@@ -52,6 +52,10 @@ async function runQuery(sources: string, query: string) {
     bindingsStream.on('data', (binding) => {
         postMessage(binding.toString());
     });
+    bindingsStream.on('end', () => {
+        console.log('done in worker');
+        postMessage('done');
+    });
 }
 
 export function bindDefaultTimezone(dateTimeTerm: Term, timezone: Term) {
@@ -173,7 +177,7 @@ export function periodToDateTime(term: Term, min: boolean, inclusive: boolean) {
     } else {
         return term;
     }
-    offset ||= min ? '-14:00' : '+14:00';
+    offset ||= min ? '+14:00' : '-14:00';
     if (offset === 'Z') {
         offset = '+00:00';
     }
