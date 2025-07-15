@@ -16,33 +16,33 @@ async function runQuery(sources: string, query: string) {
         sources: [sources],
         lenient: true,
         extensionFunctions: {
-            async 'http://www.w3.org/2006/time#defaultTimezone'(args: Term[]) {
+            async 'https://w3id.org/time-fn/bindDefaultTimezone'(args: Term[]) {
                 if (args.length !== 2) {
-                    throw new Error('Invalid number of arguments for http://www.w3.org/2006/time#defaultTimezone');
+                    throw new Error('Invalid number of arguments for https://w3id.org/time-fn/bindDefaultTimezone');
                 }
                 return bindDefaultTimezone(args[0], args[1]);
             },
-            async 'http://www.w3.org/2006/time#periodMinInclusive'(args: Term[]) {
+            async 'https://w3id.org/time-fn/periodMinInclusive'(args: Term[]) {
                 if (args.length !== 1) {
-                    throw new Error('Invalid number of arguments for http://www.w3.org/2006/time#periodMinInclusive');
+                    throw new Error('Invalid number of arguments for https://w3id.org/time-fn/periodMinInclusive');
                 }
                 return periodToDateTime(args[0], true, true);
             },
-            async 'http://www.w3.org/2006/time#periodMinExclusive'(args: Term[]) {
+            async 'https://w3id.org/time-fn/periodMinExclusive'(args: Term[]) {
                 if (args.length !== 1) {
-                    throw new Error('Invalid number of arguments for http://www.w3.org/2006/time#periodMinExclusive');
+                    throw new Error('Invalid number of arguments for https://w3id.org/time-fn/periodMinExclusive');
                 }
                 return periodToDateTime(args[0], true, false);
             },
-            async 'http://www.w3.org/2006/time#periodMaxInclusive'(args: Term[]) {
+            async 'https://w3id.org/time-fn/periodMaxInclusive'(args: Term[]) {
                 if (args.length !== 1) {
-                    throw new Error('Invalid number of arguments for http://www.w3.org/2006/time#periodMaxInclusive');
+                    throw new Error('Invalid number of arguments for https://w3id.org/time-fn/periodMaxInclusive');
                 }
                 return periodToDateTime(args[0], false, true);
             },
-            async 'http://www.w3.org/2006/time#periodMaxExclusive'(args: Term[]) {
+            async 'https://w3id.org/time-fn/periodMaxExclusive'(args: Term[]) {
                 if (args.length !== 1) {
-                    throw new Error('Invalid number of arguments for http://www.w3.org/2006/time#periodMaxExclusive');
+                    throw new Error('Invalid number of arguments for https://w3id.org/time-fn/periodMaxExclusive');
                 }
                 return periodToDateTime(args[0], false, false);
             },

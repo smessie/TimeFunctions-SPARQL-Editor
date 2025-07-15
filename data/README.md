@@ -15,10 +15,10 @@ DBA_PASSWORD=replacei-with-your-secret-virtuoso-password
 Then, run the following command to start the Virtuoso SPARQL endpoint:
 
 ```bash
-docker compose up -d -e DBA_PASSWORD=*my-secret-virtuoso-password*
+docker compose up -d
 ```
 
-This will start the Virtuoso service, load the data using the `scripts/load-data.sql` script and enable CORS using the `scripts/add-cors.sql` script, and expose the SPARQL endpoint at `http://localhost:8890/sparql`.
+This will start the Virtuoso service, execute all scripts in the `scripts/` folder on initialization, such as loading the data using the `scripts/load-data.sql` script, and expose the SPARQL endpoint at `http://localhost:8890/sparql`.
 
 Next, you need to set up SSL for the Virtuoso SPARQL endpoint. You can use Certbot to obtain a certificate.
 
