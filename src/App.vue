@@ -76,7 +76,7 @@ const loadVariation = (queryId: string) => {
             <div class="float-right">
                 <DarkModeToggle />
             </div>
-            <h1 class="text-3xl mb-12">Timezoneless Time Literals In SPARQL Demo</h1>
+            <h1 class="text-3xl mb-12">Time Functions SPARQL Editor</h1>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                 <button v-for="query in queries" :key="query.id" @click="loadVariation(query.id)" :class="[active.query === query.id ? query.variations.find(v => v.id === active.variation)?.border : 'border-gray-300', 'mb-4 p-2 border rounded-md bg-white dark:bg-gray-900 hover:bg-gray-200 hover:dark:bg-gray-800 active:bg-gray-300 active:dark:bg-gray-700 disabled:opacity-50']">

@@ -1,6 +1,6 @@
-# TimezonelessTimeLiteralsInSparqlDemo
+# Time Functions SPARQL Editor
 
-This template should help get you started developing with Vue 3 in Vite.
+A SPARQL Editor implementing Time Functions for the demo article on "It’s About Time: Time Functions for Comparing Partial and Floating Time Literals in SPARQL"
 
 ## Recommended IDE Setup
 

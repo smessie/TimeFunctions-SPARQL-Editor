@@ -1,7 +1,7 @@
 {
-  "name": "timezonelesstimeliteralsinsparqldemo",
-  "version": "0.0.0",
-  "private": true,
+  "name": "TimeFunctions-SPARQL-Editor",
+  "version": "1.0.0",
+  "private": false,
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,6 +13,10 @@
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
     "format": "prettier --write src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smessie/TimeFunctions-SPARQL-Editor.git"
   },
   "dependencies": {
     "@comunica/query-sparql": "^4.1.0",
