@@ -1,0 +1,55 @@
+[
+  {
+    "name": "Publications at Bob Evnen's birthdate",
+    "id": "ugent-biblio",
+    "variations": [
+      {
+        "id": "default",
+        "query": "PREFIX time-fn: <https://w3id.org/time-fn/>\nPREFIX dbpo: <http://dbpedia.org/ontology/>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX schema: <http://schema.org/>\n\nSELECT ?publication ?title ?type ?pubDate ?birthDate\nWHERE {\n  SERVICE <https://dbpedia.org/sparql> {\n    <http://dbpedia.org/resource/Bob_Evnen> a dbpo:Person ;\n                 dbpo:birthDate ?birthDate.\n  }\n  SERVICE <https://ugent-biblio.smessie.com/sparql> {\n  \t?publication a ?type ;\n   \t             schema:dateCreated ?pubDate ;\n                 schema:name ?title.\n  }\n  FILTER(?birthDate = ?pubDate).\n}",
+        "endpoint": "",
+        "next": "unfiltered",
+        "border": "border-red-400"
+      },
+      {
+        "id": "unfiltered",
+        "query": "PREFIX time-fn: <https://w3id.org/time-fn/>\nPREFIX dbpo: <http://dbpedia.org/ontology/>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX schema: <http://schema.org/>\n\nSELECT ?publication ?title ?type ?pubDate ?birthDate\nWHERE {\n  SERVICE <https://dbpedia.org/sparql> {\n    <http://dbpedia.org/resource/Bob_Evnen> a dbpo:Person ;\n                 dbpo:birthDate ?birthDate.\n  }\n  SERVICE <https://ugent-biblio.smessie.com/sparql> {\n  \t?publication a ?type ;\n   \t             schema:dateCreated ?pubDate ;\n                 schema:name ?title.\n  }\n} LIMIT 100",
+        "endpoint": "",
+        "next": "time-fn",
+        "border": "border-yellow-400"
+      },
+      {
+        "id": "time-fn",
+        "query": "PREFIX time-fn: <https://w3id.org/time-fn/>\nPREFIX dbpo: <http://dbpedia.org/ontology/>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX schema: <http://schema.org/>\n\nSELECT ?publication ?title ?type ?pubDate ?birthDate\nWHERE {\n  SERVICE <https://dbpedia.org/sparql> {\n    <http://dbpedia.org/resource/Bob_Evnen> a dbpo:Person ;\n                 dbpo:birthDate ?birthDate.\n  }\n  SERVICE <https://ugent-biblio.smessie.com/sparql> {\n  \t?publication a ?type ;\n   \t             schema:dateCreated ?pubDate ;\n                 schema:name ?title.\n  }\n  BIND(time-fn:periodMinInclusive(?birthDate) AS ?birthDateMin).\n  BIND(time-fn:periodMaxExclusive(?birthDate) AS ?birthDateMax).\n  FILTER(?birthDateMin <= ?pubDate && ?pubDate < ?birthDateMax).\n}",
+        "endpoint": "",
+        "next": "time-fn-extended",
+        "border": "border-green-400"
+      },
+      {
+        "id": "time-fn-extended",
+        "query": "PREFIX time-fn: <https://w3id.org/time-fn/>\nPREFIX dbpo: <http://dbpedia.org/ontology/>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX schema: <http://schema.org/>\n\nSELECT ?publication ?title ?type ?pubDate ?birthDate ?birthDateMin ?birthDateMax\nWHERE {\n  SERVICE <https://dbpedia.org/sparql> {\n    <http://dbpedia.org/resource/Bob_Evnen> a dbpo:Person ;\n                 dbpo:birthDate ?birthDate.\n  }\n  SERVICE <https://ugent-biblio.smessie.com/sparql> {\n  \t?publication a ?type ;\n   \t             schema:dateCreated ?pubDate ;\n                 schema:name ?title.\n  }\n  BIND(time-fn:periodMinInclusive(?birthDate) AS ?birthDateMin).\n  BIND(time-fn:periodMaxExclusive(?birthDate) AS ?birthDateMax).\n  FILTER(?birthDateMin <= ?pubDate && ?pubDate < ?birthDateMax).\n}",
+        "endpoint": "",
+        "next": "default",
+        "border": "border-blue-400"
+      }
+    ]
+  },
+  {
+    "name": "Skewed #birthdays per month",
+    "id": "birthdays",
+    "variations": [
+      {
+        "id": "default",
+        "query": "PREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\n\nSELECT ?month (COUNT(?person) AS ?count) WHERE {\n  ?person wdt:P106 wd:Q2066131;\n          wdt:P569 ?birth.\n  FILTER((DATATYPE(?birth)) = xsd:dateTime)\n}\nGROUP BY ((MONTH(?birth)) AS ?month)\nORDER BY ASC(?month)",
+        "endpoint": "https://query.wikidata.org/sparql",
+        "next": "filtered",
+        "border": "border-red-400"
+      },{
+        "id": "filtered",
+        "query": "PREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\n\nSELECT ?month (COUNT(?person) AS ?count) WHERE {\n  ?person wdt:P106 wd:Q2066131;\n          wdt:P569 ?birth.\n  FILTER((DATATYPE(?birth)) = xsd:dateTime)\n\n  # Filter out 1 January 00:00:00Z\n  FILTER (\n    MONTH(?birth) != 1 ||\n    !(DAY(?birth) = 1 &&\n      HOURS(?birth) = 0 &&\n      MINUTES(?birth) = 0 &&\n      SECONDS(?birth) = 0)\n  )\n}\nGROUP BY ((MONTH(?birth)) AS ?month)\nORDER BY ASC(?month)",
+        "endpoint": "https://query.wikidata.org/sparql",
+        "next": "default",
+        "border": "border-yellow-400"
+      }
+    ]
+  }
+]
