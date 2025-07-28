@@ -1,5 +1,18 @@
 [
   {
+    "name": "Example usage",
+    "id": "example-usage",
+    "variations": [
+      {
+        "id": "default",
+        "query": "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\nPREFIX tfn: <https://w3id.org/time-fn#>\n\nSELECT *\nWHERE {\n  BIND(\"2025-08\"^^xsd:gYearMonth AS ?date).\n  BIND(tfn:periodMinInclusive(?date) AS ?minIncl).\n  BIND(tfn:periodMinExclusive(?date) AS ?minExcl).\n  BIND(tfn:periodMaxInclusive(?date) AS ?maxIncl).\n  BIND(tfn:periodMaxExclusive(?date) AS ?maxExcl).\n  BIND(tfn:bindDefaultTimezone(?date, \"+02:00\") AS ?dfltTZ).\n}\n",
+        "endpoint": "",
+        "next": "default",
+        "border": "border-blue-400"
+      }
+    ]
+  },
+  {
     "name": "Publications at Bob Evnen's birthdate",
     "id": "ugent-biblio",
     "variations": [

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import DarkModeToggle from '@/components/DarkModeToggle.vue';
 import QueryEditor from '@/components/QueryEditor.vue';
 import queries from '@/assets/queries.json';
@@ -68,6 +68,10 @@ const loadVariation = (queryId: string) => {
         }
     }
 };
+
+onMounted(() => {
+    loadVariation("example-usage");
+})
 </script>
 
 <template>
