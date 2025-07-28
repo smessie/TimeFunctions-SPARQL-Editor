@@ -58,12 +58,21 @@ async function runQuery(sources: string, query: string) {
     });
 }
 
+const XSD_TYPE_TO_FORMAT: Record<string, string> = {
+    'http://www.w3.org/2001/XMLSchema#dateTime': 'yyyy-MM-dd\'T\'HH:mm:ss.SSSZZ',
+    'http://www.w3.org/2001/XMLSchema#date': 'yyyy-MM-ddZZ',
+    'http://www.w3.org/2001/XMLSchema#gYearMonth': 'yyyy-MMZZ',
+    'http://www.w3.org/2001/XMLSchema#gYear': 'yyyyZZ',
+}
+
 export function bindDefaultTimezone(dateTimeTerm: Term, timezone: Term) {
     // DateTime needs to be a Literal and a (partial) dateTime.
     if (
         dateTimeTerm.termType !== 'Literal' ||
         (dateTimeTerm.datatype.value !== 'http://www.w3.org/2001/XMLSchema#dateTime' &&
-            dateTimeTerm.datatype.value !== 'http://www.w3.org/2001/XMLSchema#date')
+            dateTimeTerm.datatype.value !== 'http://www.w3.org/2001/XMLSchema#date' &&
+            dateTimeTerm.datatype.value !== 'http://www.w3.org/2001/XMLSchema#gYearMonth' &&
+            dateTimeTerm.datatype.value !== 'http://www.w3.org/2001/XMLSchema#gYear')
     ) {
         console.error(`Invalid dateTime Term: ${dateTimeTerm.value}`);
         return dateTimeTerm;
@@ -96,12 +105,7 @@ export function bindDefaultTimezone(dateTimeTerm: Term, timezone: Term) {
         return dateTimeTerm;
     }
 
-    return DF.literal(
-        dateTimeTerm.datatype.value === 'http://www.w3.org/2001/XMLSchema#dateTime'
-            ? parsedDate.toISO()
-            : parsedDate.toFormat('yyyy-MM-ddZZ'),
-        dateTimeTerm.datatype,
-    );
+    return DF.literal(parsedDate.toFormat(XSD_TYPE_TO_FORMAT[dateTimeTerm.datatype.value]), dateTimeTerm.datatype);
 }
 
 export function XSD_T(property: string) {
