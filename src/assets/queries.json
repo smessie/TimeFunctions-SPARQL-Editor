@@ -18,28 +18,28 @@
     "variations": [
       {
         "id": "default",
-        "query": "PREFIX tfn: <https://w3id.org/time-fn#>\nPREFIX dbpo: <http://dbpedia.org/ontology/>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX schema: <http://schema.org/>\n\nSELECT ?publication ?title ?type ?pubDate ?birthDate\nWHERE {\n  SERVICE <https://dbpedia.org/sparql> {\n    <http://dbpedia.org/resource/Bob_Evnen> a dbpo:Person ;\n                 dbpo:birthDate ?birthDate.\n  }\n  SERVICE <https://ugent-biblio.smessie.com/sparql> {\n  \t?publication a ?type ;\n   \t             schema:dateCreated ?pubDate ;\n                 schema:name ?title.\n  }\n  FILTER(?birthDate = ?pubDate).\n}",
+        "query": "PREFIX tfn: <https://w3id.org/time-fn#>\nPREFIX dbpo: <http://dbpedia.org/ontology/>\nPREFIX schema: <http://schema.org/>\n\nSELECT ?publication ?title ?type ?pubDate ?birthDate\nWHERE {\n  SERVICE <https://dbpedia.org/sparql> {\n    <http://dbpedia.org/resource/Bob_Evnen> a dbpo:Person ;\n                 dbpo:birthDate ?birthDate.\n  }\n  SERVICE <https://ugent-biblio.smessie.com/sparql> {\n  \t?publication a ?type ;\n   \t             schema:dateCreated ?pubDate ;\n                 schema:name ?title.\n  }\n  FILTER(?birthDate = ?pubDate).\n}",
         "endpoint": "",
         "next": "unfiltered",
         "border": "border-red-400"
       },
       {
         "id": "unfiltered",
-        "query": "PREFIX tfn: <https://w3id.org/time-fn#>\nPREFIX dbpo: <http://dbpedia.org/ontology/>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX schema: <http://schema.org/>\n\nSELECT ?publication ?title ?type ?pubDate ?birthDate\nWHERE {\n  SERVICE <https://dbpedia.org/sparql> {\n    <http://dbpedia.org/resource/Bob_Evnen> a dbpo:Person ;\n                 dbpo:birthDate ?birthDate.\n  }\n  SERVICE <https://ugent-biblio.smessie.com/sparql> {\n  \t?publication a ?type ;\n   \t             schema:dateCreated ?pubDate ;\n                 schema:name ?title.\n  }\n} LIMIT 100",
+        "query": "PREFIX tfn: <https://w3id.org/time-fn#>\nPREFIX dbpo: <http://dbpedia.org/ontology/>\nPREFIX schema: <http://schema.org/>\n\nSELECT ?publication ?title ?type ?pubDate ?birthDate\nWHERE {\n  SERVICE <https://dbpedia.org/sparql> {\n    <http://dbpedia.org/resource/Bob_Evnen> a dbpo:Person ;\n                 dbpo:birthDate ?birthDate.\n  }\n  SERVICE <https://ugent-biblio.smessie.com/sparql> {\n  \t?publication a ?type ;\n   \t             schema:dateCreated ?pubDate ;\n                 schema:name ?title.\n  }\n} LIMIT 100",
         "endpoint": "",
         "next": "time-fn",
         "border": "border-yellow-400"
       },
       {
         "id": "time-fn",
-        "query": "PREFIX tfn: <https://w3id.org/time-fn#>\nPREFIX dbpo: <http://dbpedia.org/ontology/>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX schema: <http://schema.org/>\n\nSELECT ?publication ?title ?type ?pubDate ?birthDate\nWHERE {\n  SERVICE <https://dbpedia.org/sparql> {\n    <http://dbpedia.org/resource/Bob_Evnen> a dbpo:Person ;\n                 dbpo:birthDate ?birthDate.\n  }\n  SERVICE <https://ugent-biblio.smessie.com/sparql> {\n  \t?publication a ?type ;\n   \t             schema:dateCreated ?pubDate ;\n                 schema:name ?title.\n  }\n  BIND(tfn:periodMinInclusive(?birthDate) AS ?birthDateMin).\n  BIND(tfn:periodMaxExclusive(?birthDate) AS ?birthDateMax).\n  FILTER(?birthDateMin <= ?pubDate && ?pubDate < ?birthDateMax).\n}",
+        "query": "PREFIX tfn: <https://w3id.org/time-fn#>\nPREFIX dbpo: <http://dbpedia.org/ontology/>\nPREFIX schema: <http://schema.org/>\n\nSELECT ?publication ?title ?type ?pubDate ?birthDate\nWHERE {\n  SERVICE <https://dbpedia.org/sparql> {\n    <http://dbpedia.org/resource/Bob_Evnen> a dbpo:Person ;\n                 dbpo:birthDate ?birthDate.\n  }\n  SERVICE <https://ugent-biblio.smessie.com/sparql> {\n  \t?publication a ?type ;\n   \t             schema:dateCreated ?pubDate ;\n                 schema:name ?title.\n  }\n  BIND(tfn:periodMinInclusive(?birthDate) AS ?birthDateMin).\n  BIND(tfn:periodMaxExclusive(?birthDate) AS ?birthDateMax).\n  FILTER(?birthDateMin <= ?pubDate && ?pubDate < ?birthDateMax).\n}",
         "endpoint": "",
         "next": "time-fn-extended",
         "border": "border-green-400"
       },
       {
         "id": "time-fn-extended",
-        "query": "PREFIX tfn: <https://w3id.org/time-fn#>\nPREFIX dbpo: <http://dbpedia.org/ontology/>\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX schema: <http://schema.org/>\n\nSELECT ?publication ?title ?type ?pubDate ?birthDate ?birthDateMin ?birthDateMax\nWHERE {\n  SERVICE <https://dbpedia.org/sparql> {\n    <http://dbpedia.org/resource/Bob_Evnen> a dbpo:Person ;\n                 dbpo:birthDate ?birthDate.\n  }\n  SERVICE <https://ugent-biblio.smessie.com/sparql> {\n  \t?publication a ?type ;\n   \t             schema:dateCreated ?pubDate ;\n                 schema:name ?title.\n  }\n  BIND(tfn:periodMinInclusive(?birthDate) AS ?birthDateMin).\n  BIND(tfn:periodMaxExclusive(?birthDate) AS ?birthDateMax).\n  FILTER(?birthDateMin <= ?pubDate && ?pubDate < ?birthDateMax).\n}",
+        "query": "PREFIX tfn: <https://w3id.org/time-fn#>\nPREFIX dbpo: <http://dbpedia.org/ontology/>\nPREFIX schema: <http://schema.org/>\n\nSELECT ?publication ?title ?type ?pubDate ?birthDate ?birthDateMin ?birthDateMax\nWHERE {\n  SERVICE <https://dbpedia.org/sparql> {\n    <http://dbpedia.org/resource/Bob_Evnen> a dbpo:Person ;\n                 dbpo:birthDate ?birthDate.\n  }\n  SERVICE <https://ugent-biblio.smessie.com/sparql> {\n  \t?publication a ?type ;\n   \t             schema:dateCreated ?pubDate ;\n                 schema:name ?title.\n  }\n  BIND(tfn:periodMinInclusive(?birthDate) AS ?birthDateMin).\n  BIND(tfn:periodMaxExclusive(?birthDate) AS ?birthDateMax).\n  FILTER(?birthDateMin <= ?pubDate && ?pubDate < ?birthDateMax).\n}",
         "endpoint": "",
         "next": "default",
         "border": "border-blue-400"
