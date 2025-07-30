@@ -64,5 +64,32 @@
         "border": "border-yellow-400"
       }
     ]
+  },
+  {
+    "name": "Birthdate of artist Haren Das",
+    "id": "haren-das",
+    "variations": [
+      {
+        "id": "default",
+        "query": "PREFIX dbr: <http://dbpedia.org/resource/>\nPREFIX dbo: <http://dbpedia.org/ontology/>\nPREFIX tfn: <https://w3id.org/time-fn#>\n\nSELECT *\nWHERE {\n  dbr:Haren_Das dbo:birthDate ?birthDate.\n}",
+        "endpoint": "https://dbpedia.org/sparql",
+        "next": "time-fn",
+        "border": "border-red-400"
+      },
+      {
+        "id": "time-fn",
+        "query": "PREFIX dbr: <http://dbpedia.org/resource/>\nPREFIX dbo: <http://dbpedia.org/ontology/>\nPREFIX tfn: <https://w3id.org/time-fn#>\n\nSELECT ?birthDate\nWHERE {\n  SERVICE <https://dbpedia.org/sparql> {\n  \tdbr:Haren_Das dbo:birthDate ?date;\n                 dbo:birthPlace ?birthPlace.\n    ?birthPlace dbo:utcOffset ?timezone.\n  }\n  BIND (tfn:bindDefaultTimezone(?date, ?timezone) AS ?birthDate)\n}",
+        "endpoint": "",
+        "next": "time-fn-extended",
+        "border": "border-green-400"
+      },
+      {
+        "id": "time-fn-extended",
+        "query": "PREFIX dbr: <http://dbpedia.org/resource/>\nPREFIX dbo: <http://dbpedia.org/ontology/>\nPREFIX tfn: <https://w3id.org/time-fn#>\n\nSELECT *\nWHERE {\n  SERVICE <https://dbpedia.org/sparql> {\n  \tdbr:Haren_Das dbo:birthDate ?date;\n                 dbo:birthPlace ?birthPlace.\n    ?birthPlace dbo:utcOffset ?timezone.\n  }\n  BIND (tfn:bindDefaultTimezone(?date, ?timezone) AS ?birthDate)\n}",
+        "endpoint": "",
+        "next": "default",
+        "border": "border-blue-400"
+      }
+    ]
   }
 ]
